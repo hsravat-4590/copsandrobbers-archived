@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +39,7 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// Updating health bar to current health.
         /// </summary>
         /// <param name="health">Amount of health to be set to health bar.</param>
+        [ClientRpc]
         public void SetHealth(float health)
         {
             slider.value = health;
