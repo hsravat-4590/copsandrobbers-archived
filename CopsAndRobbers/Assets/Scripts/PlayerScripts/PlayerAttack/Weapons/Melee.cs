@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Me.DerangedSenators.CopsAndRobbers.Weapons
+namespace Me.DerangedSenators.CopsAndRobbers
 {
     /// <summary>
     /// Class Designed to handle Melee Attacks. Implemented from the legacy <include file='PlayerAttack.cs'/>
@@ -20,7 +20,7 @@ namespace Me.DerangedSenators.CopsAndRobbers.Weapons
         {
             // Do nothing for now
         }
-
+        
         private void SetAttackParams()
         {
             mousePosition = GetMouseWorldPosition(); // +new Vector3(-0.5f, -0.2f, 0);

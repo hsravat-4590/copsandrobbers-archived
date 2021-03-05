@@ -6,19 +6,13 @@ namespace Me.DerangedSenators.CopsAndRobbers
 {
     public class AttackCircle : MonoBehaviour
     {
-        public PlayerAttack playerAttack;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
+        public AttackVector Vector;
+        
         // Update is called once per frame
         void Update()
         {
             //transform.position = playerAttack.GetAttackPoint();
-            transform.position = new Vector3(playerAttack.GetAttackPoint(0.4f).x, playerAttack.GetAttackPoint(0.4f).y, 0);
+            transform.position = new Vector3(Vector.GetAttackPoint(0.4f).x, Vector.GetAttackPoint(0.4f).y, 0);
 
         }
     }

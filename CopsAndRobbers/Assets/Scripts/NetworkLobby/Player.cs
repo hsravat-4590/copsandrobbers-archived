@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Me.DerangedSenators.CopsAndRobbers.Weapons;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
@@ -16,6 +17,7 @@ namespace Me.DerangedSenators.CopsAndRobbers {
         [SyncVar] public string MatchId;
         [SyncVar] public int playerIndex;
         [SyncVar] public int teamId;
+        public Teams Team;
         public MoneyUpdater MoneyUpdater;
 
         NetworkMatchChecker networkMatchChecker;
@@ -207,7 +209,6 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                     playerPrefabs[i].GetComponent<BoxCollider2D>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
                     playerPrefabs[i].GetComponent<Animator>().enabled = true;
-                    playerPrefabs[i].GetComponent<PlayerAttack>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerMovement>().enabled = true;
                     playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
                     playerPrefabs[i].GetComponent<PlayerCameraContoller>().enabled = true;
@@ -220,26 +221,28 @@ namespace Me.DerangedSenators.CopsAndRobbers {
                 playerPrefabs[i].GetComponent<PlayerHealth>().enabled = true;
                 playerPrefabs[i].GetComponent<Animator>().enabled = true;
                 playerPrefabs[i].GetComponent<NetworkTransform>().enabled = true;
+                playerPrefabs[i].GetComponent<WeaponManager>().enabled = true;
+                playerPrefabs[i].GetComponent<WeaponManager>().SayHellow();
                 if (playerPrefabs[i].GetComponent<Player>().teamId == 1) // if team is cops
                 {
                     playerPrefabs[i].layer = 9;
                     string robberLayer = LayerMask.LayerToName(8);
                     //*Debug.Log($"Robber Layer: {robberLayer}");
-                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Robbers");
+                    playerPrefabs[i].GetComponent<WeaponManager>().EnemyLayer = 1 << LayerMask.NameToLayer("Robbers");
                     Animator anim = playerPrefabs[i].GetComponent<Animator>();
                     playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.COPS;
                     anim.runtimeAnimatorController = Resources.Load("Animations/CopAnimations/Player1") as RuntimeAnimatorController;
-
+                    Team = Teams.COPS;
 
                 }
                 else if (playerPrefabs[i].GetComponent<Player>().teamId == 2)//if team is robber
                 {
                     playerPrefabs[i].layer = 8;
                     playerPrefabs[i].GetComponent<MoneyUpdater>().mTeam = Teams.ROBBERS;
-                    playerPrefabs[i].GetComponent<PlayerAttack>().enemyLayer = 1 << LayerMask.NameToLayer("Cops");
+                    playerPrefabs[i].GetComponent<WeaponManager>().EnemyLayer = 1 << LayerMask.NameToLayer("Cops");
                     Animator anim = playerPrefabs[i].GetComponent<Animator>();
-
                     anim.runtimeAnimatorController = Resources.Load("Animations/RobberAnimations/RobberAll") as RuntimeAnimatorController;
+                    Team = Teams.ROBBERS;
                 }
                 DontDestroyOnLoad(playerPrefabs[i]);
             }

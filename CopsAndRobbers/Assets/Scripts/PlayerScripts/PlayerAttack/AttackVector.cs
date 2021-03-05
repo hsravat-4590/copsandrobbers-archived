@@ -21,6 +21,14 @@ namespace Me.DerangedSenators.CopsAndRobbers
         /// </summary>
         public LayerMask EnemyLayer;
 
+        private Teams _team;
+        
+        /// <summary>
+        /// This method can be used by inherited types to get the team of the player. This can be used for many different tasks including setting team-specific sprites etc.
+        /// </summary>
+        /// <returns>An Enum of Type Teams which shows if the Player is Cop or Robber</returns>
+        protected Teams getPlayerTeam() => _team;
+
         /// <summary>
         /// Damage caused from a single strike by this vector. Set as 10% by default but can be overridden as required
         /// </summary>
@@ -61,6 +69,16 @@ namespace Me.DerangedSenators.CopsAndRobbers
             {
                 _attack.OnMobileAttackButtonReleased();
             }
+        }
+
+
+        /// <summary>
+        /// Sets the team of the player with this weapon. This method should be called when instantiating the AttackVector GameObject if the GameObject needs to know the team
+        /// </summary>
+        /// <param name="team">The team of the player wielding the weapon</param>
+        public void SetTeam(Teams team)
+        {
+            _team = team;
         }
 
         /// <summary>
